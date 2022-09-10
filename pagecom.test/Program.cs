@@ -1,6 +1,7 @@
 using MassTransit;
 using pagecom.cart.app.Extender;
 using pagecom.cart.data.Extender;
+using pagecom.test.databaseprepreration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,10 @@ builder.Services.pagecomachartApplicationExtender();
 
 
 var app = builder.Build();
+
+// add database information
+PrepData.DatabaseCreating(app);
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

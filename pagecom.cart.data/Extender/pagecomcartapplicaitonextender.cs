@@ -22,11 +22,27 @@ public static class pagecomcartapplicaitonextender
         service.AddScoped<IUserRepository, UserService>();
         service.AddScoped<IcartBookRepository, CartBookService>();
         service.AddScoped<ICartRepository, CartService>();
-        
 
-        service.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
-            configuration.GetConnectionString("DefaultConnection")
-        ));
+        if (DbInfo.HOST != null)
+        {
+            string connectionString =
+                $"Data Source={DbInfo.HOST},{DbInfo.PORT};Initial Catalog={DbInfo.DATABASE};User ID={DbInfo.SA};Password={DbInfo.PASSWORD}";
+
+            Console.WriteLine("-----------------------------------------------------------------------------------------------------------");
+            Console.WriteLine(connectionString);
+            
+            service.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
+                connectionString
+                ));
+        }
+        else
+        {
+            service.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
+                configuration.GetConnectionString("DefaultConnection")
+            ));
+        }
+
+      
         
         
         // mapping profile inject 
@@ -38,11 +54,17 @@ public static class pagecomcartapplicaitonextender
         {
             x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(config =>
             {
-                config.Host("localhost", h =>
+                // config.Host("localhost", h =>
+                // {
+                //     h.Username("guest");
+                //     h.Password("guest");
+                // }); // local environment 
+                
+                config.Host(DbInfo.RABBIT , h =>
                 {
                     h.Username("guest");
                     h.Password("guest");
-                });
+                }); 
             }));
         });
 

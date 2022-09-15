@@ -1,5 +1,6 @@
 using MassTransit;
 using pagecom.cart.app.Extender;
+using pagecom.cart.data.databaseConfiguration;
 using pagecom.cart.data.Extender;
 using pagecom.test.databaseprepreration;
 
@@ -13,10 +14,18 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
+// add docker configuration 
+
+DbInfo.HOST = Environment.GetEnvironmentVariable("HOST");
+DbInfo.PORT = Environment.GetEnvironmentVariable("PORT");
+DbInfo.DATABASE = Environment.GetEnvironmentVariable("DATABASE");
+DbInfo.SA = Environment.GetEnvironmentVariable("USER");
+DbInfo.PASSWORD = Environment.GetEnvironmentVariable("PASSWORD");
+DbInfo.RABBIT = Environment.GetEnvironmentVariable("RABBIT");
+
+
 builder.Services.pagecomcartApplicationExtenderclass(builder.Configuration);
 builder.Services.pagecomachartApplicationExtender();
-
-
 
 
 

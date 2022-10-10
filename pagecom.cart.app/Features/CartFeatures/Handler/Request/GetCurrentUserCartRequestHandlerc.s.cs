@@ -19,13 +19,21 @@ public class GetCurrentUserCartRequestHandler : IRequestHandler<GetCurrentUserCa
     {
         
         var user = await this._userRepository.GetUserFromId(request.id);
+        Console.WriteLine($"REQUEST ID IS >>>>>>>>>>>>>>>>>>>>>>>>>>>>:{request.id}");
+
+        
         if (user != null)
         {
+            Console.WriteLine("====================================== FIND USER");
             var value = await this._userRepository.GetUserNonDeliverdCart(user);
             return value;
         }
 
-        return new UserDTO();
+        Console.WriteLine("----------------------------> USER NOT FOUND");
+        return new UserDTO()
+        {
+            UserName = "shavendra"
+        };
 
     }
 }

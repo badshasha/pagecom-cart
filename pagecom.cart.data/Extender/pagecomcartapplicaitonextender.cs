@@ -25,8 +25,21 @@ public static class pagecomcartapplicaitonextender
 
         if (DbInfo.HOST != null)
         {
-            string connectionString =
-                $"Data Source={DbInfo.HOST},{DbInfo.PORT};Initial Catalog={DbInfo.DATABASE};User ID={DbInfo.SA};Password={DbInfo.PASSWORD}";
+
+            string connectionString;
+            if (DbInfo.AZURE_ENVIRONMENT) // in the azure environment [  azure sql server  ]
+            {
+                connectionString =
+                    $"Server=tcp:{DbInfo.HOST},{DbInfo.PORT};Initial Catalog={DbInfo.DATABASE};Persist Security Info=False;User ID={DbInfo.USER};Password={DbInfo.PASSWORD};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+                Console.WriteLine("azure connection establish");
+            }
+            else
+            {
+                connectionString =
+                    $"Data Source={DbInfo.HOST},{DbInfo.PORT};Initial Catalog={DbInfo.DATABASE};User ID={DbInfo.SA};Password={DbInfo.PASSWORD}";
+            }
+
+        
 
             Console.WriteLine("-----------------------------------------------------------------------------------------------------------");
             Console.WriteLine(connectionString);
@@ -60,11 +73,19 @@ public static class pagecomcartapplicaitonextender
                 //     h.Password("guest");
                 // }); // local environment 
                 
-                config.Host(DbInfo.RABBIT , h =>
+                // config.Host(DbInfo.RABBIT , h =>
+                // {
+                //     h.Username("guest");
+                //     h.Password("guest");
+                // }); // docker environment 
+                
+                config.Host( DbInfo.RABBIT ,"/" , h =>
                 {
                     h.Username("guest");
                     h.Password("guest");
-                }); 
+                }); // for kubernetes 
+                
+                
             }));
         });
 

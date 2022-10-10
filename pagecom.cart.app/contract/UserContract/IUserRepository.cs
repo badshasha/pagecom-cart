@@ -11,7 +11,7 @@ namespace pagecom.cart.app.contract.UserContract;
 
 public interface IUserRepository
 {
-    Task<User?> GetUserFromId(string id);
+    Task<User> GetUserFromId(string id);
     Task<List<User>> GetAllUsers();
     Task<User> Create(UserDTO userobj);
     Task<UserDTO?> GetUserNonDeliverdCart(User user); // current user

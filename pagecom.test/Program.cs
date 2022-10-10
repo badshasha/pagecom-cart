@@ -22,6 +22,9 @@ DbInfo.DATABASE = Environment.GetEnvironmentVariable("DATABASE");
 DbInfo.SA = Environment.GetEnvironmentVariable("USER");
 DbInfo.PASSWORD = Environment.GetEnvironmentVariable("PASSWORD");
 DbInfo.RABBIT = Environment.GetEnvironmentVariable("RABBIT");
+DbInfo.RABBIT_PORT = Environment.GetEnvironmentVariable("RABBIT_PORT");
+DbInfo.AZURE_ENVIRONMENT = Environment.GetEnvironmentVariable("AZURE") != null ; // check azure environment or not 
+// DbInfo.RABBIT_VIRRUAL_HOST = Environment.GetEnvironmentVariable("RABBIT_HOST");
 
 
 builder.Services.pagecomcartApplicationExtenderclass(builder.Configuration);

@@ -72,7 +72,8 @@ public class DoneCartCommandRequestHandler : IRequestHandler<DoneCartCommandRequ
             };
             
             // send information to rabbit mq 
-            var url = new Uri("rabbitmq://localhost/pagecom");
+            Console.WriteLine("message send to RabbitMQ");
+            var url = new Uri("rabbitmq://localhost/pagecom"); // assume this thing is a exchanger name
             var endpint = await this._bus.GetSendEndpoint(url);
 
             // var productInformation =new P()

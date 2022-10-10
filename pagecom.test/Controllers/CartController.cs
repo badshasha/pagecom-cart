@@ -95,6 +95,12 @@ public class CartController : Controller
         
         try
         {
+            Console.WriteLine("-------------------------------------------------------------------------------------------------");
+            Console.WriteLine("-------------------------------------------------------------------------------------------------");
+            Console.WriteLine("-------------------------------------------------------------------------------------------------");
+            Console.WriteLine("-------------------------------| CHECK CURRENT CART |--------------------------------------------");
+            
+            
             var usercarts = await this._meadiator.Send(new GetCurrentUserCartRequest(id));
             this._response = ResponseCreating.GetResponse(usercarts);
 

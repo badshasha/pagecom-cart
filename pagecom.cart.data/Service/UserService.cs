@@ -18,6 +18,9 @@ public class UserService : IUserRepository
     public Task<User?> GetUserFromId(string id)
     {
         var user = this._context.Users.FirstOrDefault(u => u.UserId == id);
+        Console.WriteLine("USER INFORMATION ----------------------------------");
+        // Console.WriteLine(user!.UserId);
+        
         return Task.FromResult(user);
     }
 

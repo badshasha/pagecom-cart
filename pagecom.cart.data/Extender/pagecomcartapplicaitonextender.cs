@@ -29,11 +29,11 @@ public static class pagecomcartapplicaitonextender
             string connectionString;
             if (DbInfo.AZURE_ENVIRONMENT) // in the azure environment [  azure sql server  ]
             {
-                connectionString =
+                connectionString = 
                     $"Server=tcp:{DbInfo.HOST},{DbInfo.PORT};Initial Catalog={DbInfo.DATABASE};Persist Security Info=False;User ID={DbInfo.USER};Password={DbInfo.PASSWORD};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
                 Console.WriteLine("azure connection establish");
             }
-            else
+            else  // local production environment testing 
             {
                 connectionString =
                     $"Data Source={DbInfo.HOST},{DbInfo.PORT};Initial Catalog={DbInfo.DATABASE};User ID={DbInfo.SA};Password={DbInfo.PASSWORD}";
